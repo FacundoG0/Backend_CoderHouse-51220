@@ -22,13 +22,12 @@ class ProductManager {
         });
         // ↑↑  preguntar porqué no me da el mismo resultado hacer this.products.lenght ++ , o que this.products.lenght + 1
 
-        return this.products.push(producto);
-
-
-
-
+        if (this.products.find(product => product.code == producto.code)){
+            console.log(`El producto con el código ${producto.code} ya existe`);
+        }else{
+            return this.products.push(producto);
+        }
     
-        // AYUDA: NO SE COMO CONFIGURAR PARA QUE NO SE REPITA EL CODE
     }
 
 
