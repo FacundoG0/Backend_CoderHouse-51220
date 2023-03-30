@@ -23,7 +23,7 @@ class ProductManager {
         // ↑↑  preguntar porqué no me da el mismo resultado hacer this.products.lenght ++ , o que this.products.lenght + 1
 
         if (this.products.find(product => product.code == producto.code)){
-            console.log(`El producto con el código ${producto.code} ya existe`);
+            return console.log(`El producto con el código ${producto.code} ya existe`);
         }else{
             return this.products.push(producto);
         }
@@ -35,8 +35,7 @@ class ProductManager {
 
     // GET ALL PRODUCTS
     getProducts(){
-        console.log("El listado de productos es")
-        console.log(this.products)
+        return console.log(this.products);
     }
 
 
@@ -45,9 +44,9 @@ class ProductManager {
         let founded = this.products.filter(product => product.id == id);
 
         if (founded[0] == undefined){
-            console.log("No se encontraron resultados")
+            return console.log("No se encontraron resultados")
         } else{
-            console.log(founded)
+            return console.log(founded)
         }
     }
 }
@@ -61,6 +60,6 @@ Pm.addProduct("autito", "plastico", 500, "https://www.youtube.com", 14, 10);
 
 
 
-Pm.getProducts();
+// Pm.getProducts();
 
-// Pm.getProductsById(2);
+Pm.getProductsById(2);
