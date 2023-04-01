@@ -49,17 +49,31 @@ class ProductManager {
             return console.log(founded)
         }
     }
+
+
+
+    //DELETEPRODUCTS
+    deleteProduct(id){
+        id = id - 1
+        return [
+            this.products.splice(id, 1),
+            console.log(`Se ha eliminado el producto con ID ${id + 1}`)];
+    }
 }
 
 
 let Pm = new ProductManager();
 
 Pm.addProduct("tomate", "grande", 250, "c://documents", 10, 1);
-Pm.addProduct("pizza", "mediana", 1500, "c://documents", 10, 5);
+Pm.addProduct("pizza", "mediana", 1500, "c://documents", 13, 5);
 Pm.addProduct("autito", "plastico", 500, "https://www.youtube.com", 14, 10);
 
 
 
-// Pm.getProducts();
+Pm.getProducts();
 
-Pm.getProductsById(2);
+Pm.deleteProduct(2)
+
+Pm.getProducts();
+
+// Pm.getProductsById(2);
