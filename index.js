@@ -76,10 +76,20 @@ class ProductManager {
 
     
     //UPDATEPRODUCT
-    updateproduct(id, campo){
+    updateproduct(id, campo, nuevo){
         let filtro = this.products.find(prod => prod.id == id);
 
-        console.log(filtro[campo])
+        if (filtro == undefined) {
+            return console.log(`No se ha encontrado producto con ID ${id}`)
+        } else {
+            return [
+                filtro[campo] = nuevo,
+                console.log(`Se ha modificado el dato ${campo} correctamente`),
+                fs.promises.writeFile(this.path, JSON.stringify(this.products), "utf-8")
+            ];
+        }
+
+
     }
 }
 
@@ -97,4 +107,6 @@ Pm.addProduct("autito", "plastico", 500, "https://www.youtube.com", 14, 10);
 
 // Pm.getProductsById(6);
 
-Pm.updateproduct(2, "title")
+Pm.updateproduct(1, "title", "jamon")
+
+Pm.getProducts();
