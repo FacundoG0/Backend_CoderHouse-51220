@@ -1,8 +1,12 @@
+const fs = require('fs')
+
 class ProductManager {
-    constructor (){
+    constructor (path){
         this.products = []
+        this.path = path
     }
 
+    //ADDPRODUCT
     addProduct(title, description, price, thumbnail, code, stock){
         let producto = {
             title: title,
@@ -25,7 +29,13 @@ class ProductManager {
         if (this.products.find(product => product.code == producto.code)){
             return console.log(`El producto con el código ${producto.code} ya existe`);
         }else{
-            return this.products.push(producto);
+
+            let string = JSON.stringify(this.products)
+
+            return [
+                this.products.push(producto),
+                fs.promises.writeFile(this.path, string, "utf-8")       
+            ];
         }
     
     }
@@ -41,9 +51,9 @@ class ProductManager {
 
     // GET PRODUCTS BY ID
     getProductsById(id){
-        let founded = this.products.filter(product => product.id == id);
+        let founded = this.products.find(product => product.id == id);
 
-        if (founded[0] == undefined){
+        if (founded == undefined){
             return console.log("No se encontraron resultados")
         } else{
             return console.log(founded)
@@ -55,14 +65,25 @@ class ProductManager {
     //DELETEPRODUCTS
     deleteProduct(id){
         id = id - 1
+
         return [
             this.products.splice(id, 1),
-            console.log(`Se ha eliminado el producto con ID ${id + 1}`)];
+            console.log(`Se ha eliminado el producto con ID ${id + 1}`),
+            fs.promises.writeFile(this.path, JSON.stringify(this.products), "utf-8")
+        ];
+    }
+
+
+    
+    //UPDATEPRODUCT
+    updateproduct(id, campo){
+        let filtro = this.products.find(prod => prod.id == id);
+
+        console.log(filtro[campo])
     }
 }
 
-
-let Pm = new ProductManager();
+let Pm = new ProductManager("./files/newfile.json");
 
 Pm.addProduct("tomate", "grande", 250, "c://documents", 10, 1);
 Pm.addProduct("pizza", "mediana", 1500, "c://documents", 13, 5);
@@ -70,10 +91,10 @@ Pm.addProduct("autito", "plastico", 500, "https://www.youtube.com", 14, 10);
 
 
 
-Pm.getProducts();
+// Pm.getProducts();
 
-Pm.deleteProduct(2)
+// Pm.deleteProduct(2)
 
-Pm.getProducts();
+// Pm.getProductsById(6);
 
-// Pm.getProductsById(2);
+Pm.updateproduct(2, "title")
