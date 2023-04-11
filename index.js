@@ -1,5 +1,6 @@
-const fs = require('fs')
+const fs = require('fs');
 
+// CLASS PRODUCT
 class ProductManager {
     constructor (path){
         this.products = []
@@ -82,10 +83,14 @@ class ProductManager {
         if (filtro == undefined) {
             return console.log(`No se ha encontrado producto con ID ${id}`)
         } else {
+            let newarray = this.products.map(prods => {
+                return prods
+            })
+            console.log(newarray)
             return [
                 filtro[campo] = nuevo,
                 console.log(`Se ha modificado el dato ${campo} correctamente`),
-                fs.promises.writeFile(this.path, JSON.stringify(this.products), "utf-8")
+                fs.promises.writeFile(this.path, JSON.stringify(newarray), "utf-8")
             ];
         }
 
