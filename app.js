@@ -3,10 +3,9 @@ const express = require("express");
 const server = express();
 const puerto = 8080;
 
-
-//Leer FS
 const fs = require('fs');
 
+// OBTENER TODOS LOS PRODUCTOS
 let getallprods = async () => {
     try{
         const data = await fs.promises.readFile("./files/newfile.json");
@@ -24,7 +23,34 @@ let getallprods = async () => {
     }
 }
 
+// OBTENER LA CANTIDAD INDICADA DE PRODUCTOS
+let getlimit = async () => {
+    try{
+        const data = await fs.promises.readFile("./files/newfile.json");
+        let prods = await JSON.parse(data);
 
+        server.get("/products", (req, res) => {
+
+            const limit = req.query.limit
+            const productos_filtrados = []
+
+            for (let i = 0; i <= limit; i++) {
+                const indice = i - 1
+                const producto = prods[indice];
+                productos_filtrados.push(producto)
+            }
+
+            return res.send(productos_filtrados)
+
+        })
+    }
+    
+    catch(err){
+        console.log(err);
+    }
+}
+
+// OBTENER PRODUCTOS POR ID
 let getoneprod = async () => {
     try{
         const data = await fs.promises.readFile("./files/newfile.json");
@@ -48,10 +74,12 @@ let getoneprod = async () => {
     }
 }
 
-// EJECUCIÓN:
-getallprods();
-getoneprod();
-
 server.listen(puerto, () => {
     console.log(`Servidor express escuchando en puerto ${puerto}`)
 })
+
+
+// EJECUCIÓN:
+//getallprods();
+getoneprod();
+getlimit();
