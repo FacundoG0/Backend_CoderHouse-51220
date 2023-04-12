@@ -10,7 +10,13 @@ const fs = require('fs');
 let productos = async () => {
         try{
             const data = await fs.promises.readFile("./files/newfile.json");
-            console.log(await JSON.parse(data));
+            let prods = await JSON.parse(data);
+
+            return [
+                server.get("/products", (req, res) => {
+                    res.send(prods)
+                })
+            ]
         }
      
         catch(err){
@@ -20,3 +26,7 @@ let productos = async () => {
 
 // EJECUCIÓN EXPRESS:
 productos();
+
+server.listen(puerto, () => {
+    console.log(`Servidor express escuchando en puerto ${puerto}`)
+})
