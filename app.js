@@ -4,7 +4,6 @@ const server = express();
 const puerto = 8080;
 
 const fs = require('fs');
-const { type } = require("os");
 
 // OBTENER TODOS LOS PRODUCTOS
 server.get("/products", async (req, res) => {
@@ -13,39 +12,21 @@ server.get("/products", async (req, res) => {
         let prods = await JSON.parse(data);
         
         // OBTENER CANTIDAD DE PRODUCTOS INDICADOS
-        const limit = req.query.limit
-        
-        if (typeof(limit) != String){
-            return res.send(prods)
-        } else {
-            console.log("se lee")
+        const limit = parseInt(req.query.limit)
+
+        if (limit > 0){
+            console.log("Devolviendo parametro limit")
             let newarr = prods.slice(0, limit)
             return res.send(newarr)
+        } else {
+            console.log("Retornando todos los productos")
+            return res.send(prods)
         }
     }
     catch (err){
         console.log(err);
     }
 })
-
-// OBTENER LA CANTIDAD INDICADA DE PRODUCTOS
-// server.get("/products", async (req, res) => {
-//     try {
-//         const data = await fs.promises.readFile("./files/newfile.json");
-//         let prods = await JSON.parse(data);
-
-//         const limit = req.query.limit
-//         const productos_filtrados = []
-        
-//         productos_filtrados.map(() => {
-//             return res.send(productos_filtrados)
-//         })
-//     }
-    
-//     catch (err){
-//         console.log(err);
-//     }   
-// })
 
 
 // OBTENER PRODUCTOS POR ID
