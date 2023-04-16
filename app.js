@@ -4,13 +4,24 @@ const server = express();
 const puerto = 8080;
 
 const fs = require('fs');
+const { type } = require("os");
 
 // OBTENER TODOS LOS PRODUCTOS
 server.get("/products", async (req, res) => {
     try {
         const data = await fs.promises.readFile("./files/newfile.json");
         let prods = await JSON.parse(data);
-        res.send(prods)
+        
+        // OBTENER CANTIDAD DE PRODUCTOS INDICADOS
+        const limit = req.query.limit
+        
+        if (typeof(limit) != String){
+            return res.send(prods)
+        } else {
+            console.log("se lee")
+            let newarr = prods.slice(0, limit)
+            return res.send(newarr)
+        }
     }
     catch (err){
         console.log(err);
@@ -18,28 +29,23 @@ server.get("/products", async (req, res) => {
 })
 
 // OBTENER LA CANTIDAD INDICADA DE PRODUCTOS
-server.get("/products", async (req, res) => {
-    try {
-        const data = await fs.promises.readFile("./files/newfile.json");
-        let prods = await JSON.parse(data);
+// server.get("/products", async (req, res) => {
+//     try {
+//         const data = await fs.promises.readFile("./files/newfile.json");
+//         let prods = await JSON.parse(data);
 
-        const limit = req.query.limit
-        const productos_filtrados = []
-
-        for (let i = 0; i <= limit; i++) {
-            const indice = i - 1
-            const producto = prods[indice];
-            productos_filtrados.push(producto)
-        }
-
-        return res.send(productos_filtrados)
-
-    }
+//         const limit = req.query.limit
+//         const productos_filtrados = []
+        
+//         productos_filtrados.map(() => {
+//             return res.send(productos_filtrados)
+//         })
+//     }
     
-    catch (err){
-        console.log(err);
-    }   
-})
+//     catch (err){
+//         console.log(err);
+//     }   
+// })
 
 
 // OBTENER PRODUCTOS POR ID
