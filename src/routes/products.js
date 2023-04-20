@@ -60,7 +60,8 @@ product_router.get("/products/:id", async (req, res) => {
 //                                                          POST
 //**************************************************************************************************************************************
 
-product_router.post("/try", async (req, res) => {
+// necesito saber porqué si hago el get a products solo no me anda.. prueben haciendo un get a otra ruta y si anda, pero a products no
+product_router.post("/products", async (req, res) => {
     try{
         const new_prod = req.body
 
@@ -92,18 +93,9 @@ product_router.post("/try", async (req, res) => {
     }     
 })
 
-product_router.get("/try", async (req, res) => {
-    try{
-        const data = await fs.promises.readFile("./files/newfile.json");
-        let prods = await JSON.parse(data);
-
-        res.send(prods)
-    }
-        
-    catch(err){
-        console.log(err);
-    }
-})
+//**************************************************************************************************************************************
+//                                                          PUT
+//**************************************************************************************************************************************
 
 
 
