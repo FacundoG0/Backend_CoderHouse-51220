@@ -72,9 +72,15 @@ product_router.post("/try", async (req, res) => {
             const data = await fs.promises.readFile("./files/newfile.json");
             let prods = await JSON.parse(data);
 
-            const all_prods = prods.map(product =>{
+            const all_prods = prods.map(product => {
                 return product
-            }) 
+            })
+
+            new_prod.id = all_prods.length + 1
+
+            if (!new_prod.status){
+                new_prod.status = true
+            }
             
             all_prods.push(new_prod)
 
