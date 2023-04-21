@@ -1,7 +1,7 @@
 // Configuración express
 const express = require("express");
 const product_router = require("./src/routes/products.js")
-const cart_router = require("./src/routes/carts.js")
+const carts_router = require("./src/routes/carts.js")
 
 
 const puerto = 8080;
