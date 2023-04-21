@@ -1,6 +1,8 @@
 // Configuración express
 const express = require("express");
 const product_router = require("./src/routes/products.js")
+const cart_router = require("./src/routes/carts.js")
+
 
 const puerto = 8080;
 const server = express();
@@ -10,6 +12,7 @@ server.use(express.urlencoded({extended: true}));
 
 // Invocación de routers
 server.use("/api", product_router);
+// server.use("/api", cart_router);
 
 
 
