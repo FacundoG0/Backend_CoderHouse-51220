@@ -11,7 +11,7 @@ carts_router.post("/carts", (req, res) => {
 
     const cart = {
         cid: "",
-        products: [req.body]
+        products: []
     }
 
     const cant_carts = carts.map(carts => {
@@ -40,23 +40,17 @@ carts_router.post("/:cid/product/:pid", async (req, res) => {
         let cid = parseInt(req.params.cid)
         const selected_cart = carts[cid - 1]
 
-        console.log(selected_cart)
-
         const data = await fs.promises.readFile("./files/newfile.json");
         let prods = await JSON.parse(data);
         
-
-
-        // problema PID → dice que no es number
         let pid = parseInt(req.params.pid)
+        const selected_product = prods[pid - 1]
 
-        console.log(`Pid es de tipo ${typeof(pid)}`)
+        selected_cart.products.push(selected_product)
 
-        if (pid == Number || pid === 1){
-            console.log("ES UN NUMERO")
-        } else {
-            console.log("NO ES UN NUMERO")
-        }
+        console.log(selected_cart)
+
+
 
     } catch (error) {
         console.log(error)
