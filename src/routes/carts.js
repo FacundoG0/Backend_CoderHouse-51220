@@ -48,9 +48,7 @@ carts_router.post("/:cid/product/:pid", async (req, res) => {
 
         selected_cart.products.push(selected_product)
 
-        console.log(selected_cart)
-
-
+        res.send(`Se ha agregado el producto ${selected_product.title} al carrito número ${selected_cart.cid}`)
 
     } catch (error) {
         console.log(error)
