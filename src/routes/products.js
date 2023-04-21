@@ -97,7 +97,44 @@ product_router.post("/products", async (req, res) => {
 //                                                          PUT
 //**************************************************************************************************************************************
 
+product_router.put("/products/:id", async (req, res) => {
+    try{
+        const data = await fs.promises.readFile("./files/newfile.json");
+        let prods = await JSON.parse(data);
 
+        const all_prods = prods.map(product => {
+            return product
+        })
+
+        const founded = all_prods[req.params.id - 1];
+        const actualizado = req.body
+
+        const keys_founded = Object.keys(founded);
+        const keys_actualizado = Object.keys(actualizado);
+
+        const values_founded = Object.entries(actualizado)
+        const values_actualizado = Object.entries(actualizado)
+
+        for (let i = 0; i <= keys_founded.length; i++) {
+            
+            console.log()
+
+            // if (founded.keys_founded[i] != actualizado.keys_actualizado[i]){
+            //     founded.keys_founded[i] = actualizado.keys_actualizado[i]
+
+            //     return console.log(founded)
+            // }
+        }
+
+        res.send(all_prods[req.params.id - 1])
+        
+
+    }
+
+    catch(err){
+        console.log(err);
+    }
+});
 
 
 
