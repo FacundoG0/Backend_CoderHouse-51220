@@ -35,27 +35,33 @@ carts_router.get("/carts/:cid", (req, res) => {
 
 // agregar prods al carrito
 carts_router.post("/:cid/product/:pid", async (req, res) => {
-    let cid = parseInt(req.params.cid)
-    const selected_cart = carts[cid - 1]
 
-    console.log(selected_cart)
+    try {
+        let cid = parseInt(req.params.cid)
+        const selected_cart = carts[cid - 1]
 
-    const data = await fs.promises.readFile("./files/newfile.json");
-    let prods = await JSON.parse(data);
-    
+        console.log(selected_cart)
+
+        const data = await fs.promises.readFile("./files/newfile.json");
+        let prods = await JSON.parse(data);
+        
 
 
-    // problema PID → dice que no es number
-    let pid = parseInt(req.params.pid)
+        // problema PID → dice que no es number
+        let pid = parseInt(req.params.pid)
 
-    console.log(`Pid es de tipo ${typeof(pid)}`)
+        console.log(`Pid es de tipo ${typeof(pid)}`)
 
-    if (pid == Number || pid == 1){
-        console.log("ES UN NUMERO")
-    } else {
-        console.log("NO ES UN NUMERO")
+        if (pid == Number || pid === 1){
+            console.log("ES UN NUMERO")
+        } else {
+            console.log("NO ES UN NUMERO")
+        }
+
+    } catch (error) {
+        console.log(error)
     }
-
+    
     
     
     //
