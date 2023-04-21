@@ -21,7 +21,7 @@ carts_router.post("/carts", (req, res) =>{
 
     carts.push(cart)
 
-    console.log(cart)
+    res.send(carts)
 })
 
 // export
