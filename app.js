@@ -12,7 +12,7 @@ server.use(express.urlencoded({extended: true}));
 
 // Invocación de routers
 server.use("/api", product_router);
-// server.use("/api", cart_router);
+server.use("/api", carts_router);
 
 
 

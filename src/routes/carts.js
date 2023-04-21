@@ -6,9 +6,9 @@ const fs = require('fs');
 
 const carts = []
 
-carts_router.post("/carts", async (req, res) =>{
+carts_router.post("/carts", (req, res) =>{
 
-    let cart = {
+    const cart = {
         id: "",
         products: [req.body]
     }
@@ -19,5 +19,10 @@ carts_router.post("/carts", async (req, res) =>{
 
     cart.id = cant_carts.length + 1
 
-    res.send(carts)
+    carts.push(cart)
+
+    console.log(cart)
 })
+
+// export
+module.exports = carts_router;
