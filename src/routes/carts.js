@@ -53,18 +53,6 @@ carts_router.post("/:cid/product/:pid", async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-    
-    
-    
-    //
-
-    // const selected_product = prods[pid - 1]
-
-
-
-    // selected_cart.push(selected_product.id)
-
-    // return res.status(200).send(`Se ha agregado el producto ${selected_product} al carrito número ${cid}`)
 
 });
 

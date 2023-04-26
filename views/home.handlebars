@@ -1,0 +1,12 @@
+<div>
+    {{#each products}}
+        <li>{{this.title}}</li>
+    {{/each}}
+</div>
+
+<script src="/socket.io/client-dist/socket.io.js"></script>
+
+<script>
+    const wsc = io("ws://http://localhost:3000")
+    wsc.emit('Cliente 01 intentando conectar')
+</script>
