@@ -9,16 +9,28 @@ const puerto = 8080;
 const server = express();
 
 // coonfig. socket.io
-const httpServer = require("http").createServer();
-const io = require("socket.io")(httpServer, {
-  // ...
+const socket = require("socket.io");
+
+const httpServer = socket.listen(3000, () => {
+  console.log("servidor socket.io iniciando en puerto 3000")
+});
+
+const io = new socket(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  // ...
-});
+  console.log(`Cliente conectado (${socket.id})`);
 
-httpServer.listen(3000);
+  socket.emit("server_confirm", "Conexión recibida");
+
+  socket.on("new_message", (data) => {
+    io.emit("msg_recieved", data)
+  });
+
+  socket.on("disconnect", (reason) => {
+    console.log(`Cliente desconectado (${socket.id}) : ${reason}`);
+  });
+});
 
 
 
