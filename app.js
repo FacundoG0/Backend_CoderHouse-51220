@@ -11,12 +11,11 @@ const server = express();
 // coonfig. socket.io
 const socket = require("socket.io");
 
-const httpServer = socket.listen(3000, () => {
+const httpServer = server.listen(3000, () => {
   console.log("servidor socket.io iniciando en puerto 3000")
 });
 
-const io = new socket(httpServer, {
-});
+const io = socket(httpServer)
 
 io.on("connection", (socket) => {
   console.log(`Cliente conectado (${socket.id})`);
@@ -31,8 +30,6 @@ io.on("connection", (socket) => {
     console.log(`Cliente desconectado (${socket.id}) : ${reason}`);
   });
 });
-
-
 
 
 
