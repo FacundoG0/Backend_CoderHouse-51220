@@ -4,12 +4,12 @@ const mongoose_router = express.Router();
 
 const userModel = require("./schema.js");
 
-const users = userModel.find();
-
-console.log(users)
 
 mongoose_router.get('/mongoose', async (req, res) => {
     try{
+        
+        const users = await userModel.find();
+        
         res.render("home", {
             users
         })

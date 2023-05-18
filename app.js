@@ -9,6 +9,7 @@ const mongoose_router = require("./src/routes/mongoose.js")
 
 require("dotenv").config();
 const mongoose = require("mongoose");
+const mongooseURL = process.env.mongooseURL;
 
 const puerto = 8080;
 const server = express();
@@ -69,7 +70,7 @@ server.listen(puerto, () => {
 // Intentar conectar a BD
 
 try {
-  mongoose.connect("mongodb://127.0.0.1:/colegio");
+  mongoose.connect(mongooseURL);
 
   server.listen(3080, () => {
     console.log("Base de datos conectada en puerto 3080")
