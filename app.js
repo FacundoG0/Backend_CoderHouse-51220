@@ -4,6 +4,11 @@ const product_router = require("./src/routes/products.js")
 const carts_router = require("./src/routes/carts.js");
 const handle_router = require("./src/routes/handlebars.js");
 
+// prueba:
+const mongoose_router = require("./src/routes/mongoose.js")
+
+require("dotenv").config();
+const mongoose = require("mongoose");
 
 const puerto = 8080;
 const server = express();
@@ -42,8 +47,13 @@ server.use("/api", product_router);
 server.use("/api", carts_router);
 server.use("/api", handle_router);
 
+// prueba
+server.use("/api", mongoose_router);
+
+
 // handlebars
 const { engine } = require("express-handlebars");
+const { default: userModel } = require("./src/routes/schema.js");
 
 
 
@@ -54,3 +64,18 @@ server.set('views', './views')
 server.listen(puerto, () => {
     console.log(`Servidor inciado en puerto: ${puerto}`);
 });
+
+
+// Intentar conectar a BD
+
+try {
+  mongoose.connect("mongodb://127.0.0.1:/colegio");
+
+  server.listen(3080, () => {
+    console.log("Base de datos conectada en puerto 3080")
+  })
+}
+
+catch (err) {
+  console.log("No se puede conectar con el servidor de BD")
+}
